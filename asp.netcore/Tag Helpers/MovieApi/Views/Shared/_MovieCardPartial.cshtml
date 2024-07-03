@@ -1,0 +1,15 @@
+﻿@model Movie
+
+<div class="col-md-3">
+    <div class="card">
+        <img src="@Model.Poster" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Title</h5>
+            @Html.GoToDetail(Model.imdbID)
+        </div>
+    </div>
+</div>
+
+
+@* <a href="Home/Movie/@Model.imdbID" class="btn btn-primary">Deatils</a>
+ *@

@@ -1,0 +1,26 @@
+﻿@model Movie;
+@{
+    var languages = @Model.Language.Split(",");
+}
+<h1>Movie</h1>
+<hr/>
+
+<div class="container">
+    <img src="@Model.Poster"></img>
+    <h1>Tittle: @Model.Title</h1>
+    @foreach (var item in languages)
+    {
+       <p>Language: @item</p>
+    }
+    <hr/>
+    <h3>Raitings:</h3>
+    @foreach (var item in Model.Ratings)
+    {
+        <p>Source: @item.Source</p>
+        <p>Value: @item.Value</p>
+    }
+    <hr/>
+    <p>Runtime: @Model.Runtime</p>
+    <p>Director: @Model.Director</p>
+    <p>Writer: @Model.Writer</p>
+</div>

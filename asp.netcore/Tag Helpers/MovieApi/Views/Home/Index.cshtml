@@ -1,0 +1,34 @@
+﻿@model MovieApiResponse
+@using MovieApi.HtmlHelpers;
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Movie Search</h1>
+    <form method="get" asp-controller="Home" asp-action="Index" class="input-group mb-3">
+        <input required name="movieName" type="text" class="form-control" placeholder="Movie name">
+        <div class="input-group-append">
+            <button class="btn btn-secondary">Search</button>
+        </div>
+    </form>
+</div>
+
+
+
+<br>
+@if (Model.Movies.Count() > 0)
+{
+    <div class="row">
+
+        @foreach (var item in Model.Movies)
+        {
+            <partial name="_MovieCardPartial" model="item"/>
+        }
+
+    </div>
+ 
+}
+
+@Html.MovieLink()

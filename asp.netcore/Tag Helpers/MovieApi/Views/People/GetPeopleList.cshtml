@@ -1,0 +1,8 @@
+﻿@model List<Person>;
+
+@foreach (var person in Model)
+{
+    <div class="container">
+        <p>Name: @person.Name Age: @person.Age</p>
+    </div>
+}
