@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using MovieApi.Models;
 using MovieApi.Options;
 using MovieApi.Services;
+using MovieApi.ViewModels;
 using System.Diagnostics;
 
 namespace MovieApi.Controllers
@@ -15,11 +16,24 @@ namespace MovieApi.Controllers
             _search = search;
         }
 
-        public async Task<IActionResult> IndexAsync(string movieName = "Matrix")
+        public async Task<IActionResult> IndexAsync()
+        {
+            return View();
+        }
+        public async Task<IActionResult> Search(string title,int page=1)
         {
             //var result = movieApiService.Search(movieName);
-            var result = await _search.Search(movieName);
-            return View(result);
+            var result = await _search.Search(title, page);
+            var model = new SearchViewModel
+            {
+                CurrentPage = page,
+                Movies = result.Movies,
+                TotalPages = (int)Math.Ceiling(result.TotalResults / 10.0),
+                TotalResult = result.TotalResults,
+                Title = title
+
+            };
+            return View(model);
         }
 
         public async Task<IActionResult> Movie(string id)

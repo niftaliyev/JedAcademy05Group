@@ -5,8 +5,9 @@
         <img src="@Model.Poster" class="card-img-top" alt="...">
         <div class="card-body">
             <h5 class="card-title">@Model.Title</h5>
-            @Html.GoToDetail(Model.imdbID)
-        </div>
+            @*@Html.GoToDetail(Model.imdbID)*@    
+            <a movie-model="@Model"></a>
+</div>
     </div>
 </div>
 

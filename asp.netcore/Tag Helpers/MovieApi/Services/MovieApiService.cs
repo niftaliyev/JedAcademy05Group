@@ -24,10 +24,10 @@ public class MovieApiService : ISearch
         //baseUrl = configuration["MovieApi:BaseUrl"];
     }
 
-    public async Task<MovieApiResponse> Search(string movieName)
+    public async Task<MovieApiResponse> Search(string movieName,int page =1)
     {
         movieName = movieName.ToLower();
-        string url = $"{baseUrl}?apikey={apiKey}&s={movieName}";
+        string url = $"{baseUrl}?apikey={apiKey}&s={movieName}&page={page}";
         var response = await _httpClient.GetAsync(url);
         var json = await response.Content.ReadAsStringAsync();
         var result = JsonSerializer.Deserialize<MovieApiResponse>(json);

@@ -1,0 +1,34 @@
+﻿@model SearchViewModel
+
+@if (Model.Movies.Count() > 0)
+{
+    <div class="row">
+
+        @foreach (var item in Model.Movies)
+        {
+            <partial name="_MovieCardPartial" model="item" />
+        }
+
+    </div>
+
+}
+<br />
+<br />
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        @if (Model.CurrentPage > 1)
+        {
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+        } 
+        @for (int i = 1; i <= @Model.TotalPages; i++)
+        {
+            <li class="page-item @(Model.CurrentPage == i ? "active" : "")"><a class="page-link" asp-controller="Home" asp-action="Search" asp-route-title="@Model.Title" asp-route-page="@i">@i</a></li>
+
+        }
+        @if (Model.CurrentPage < Model.TotalPages)
+        {
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        }
+    </ul>
+</nav>
+
