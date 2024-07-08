@@ -1,8 +1,10 @@
 ﻿@model Movie
 
-<div class="col-md-3">
+@* onerror="event.target.src = '/images/placeholder.png'"
+ *@
+ <div class="col-md-3">
     <div class="card">
-        <img src="@Model.Poster" class="card-img-top" alt="...">
+        <img error-src="/images/placeholder.png" src="@Model.Poster" class="card-img-top" alt="@Model.Title">
         <div class="card-body">
             <h5 class="card-title">@Model.Title</h5>
             @*@Html.GoToDetail(Model.imdbID)*@    

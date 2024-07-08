@@ -11,9 +11,12 @@ namespace MovieApi.Controllers
     public class HomeController : Controller
     {
         private ISearch _search;
-        public HomeController(ISearch search)
+        private readonly IReviewService reviewService;
+
+        public HomeController(ISearch search, IReviewService reviewService)
         {
             _search = search;
+            this.reviewService = reviewService;
         }
 
         public async Task<IActionResult> IndexAsync()
@@ -38,8 +41,22 @@ namespace MovieApi.Controllers
 
         public async Task<IActionResult> Movie(string id)
         {
-            var result = await _search.SearchMovieByIdAsync(id);
-            return View(result);
+            var movie = await _search.SearchMovieByIdAsync(id);
+            var rewies = await reviewService.GetReviewsAsync(id);
+
+            var model = new MovieDetailsViewModel
+            {
+                Movie = movie,
+                Reviews = rewies
+            };
+            return View(model);
+        }
+
+
+        public async Task<ActionResult> PostReview(Review review)
+        {
+            await reviewService.AddReviewAsync(review);
+            return RedirectToAction("Movie", new { id = review.imdbID });
         }
 
 

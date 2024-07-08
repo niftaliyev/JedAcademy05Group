@@ -1,6 +1,6 @@
-using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
 using MovieApi.Extensions;
-using MovieApi.Options;
+using MovieApi.Models;
 using MovieApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,12 +9,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<ISearch,MovieApiService>();
+builder.Services.AddTransient<IReviewService,ReviewService>();
 builder.Services.AddHttpClient();
 
 builder.Services.AddMovieApi(options =>
 {
     options.ApiKey = builder.Configuration["MovieApi:ApiKey"];
     options.BaseUrl = builder.Configuration["MovieApi:BaseUrl"];
+});
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 //builder.Services.Configure<MovieApiOptions>(options =>
