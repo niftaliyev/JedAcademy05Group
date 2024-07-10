@@ -1,0 +1,41 @@
+﻿@model Post
+<form asp-controller="Posts" asp-action="Create" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Title"></label>
+        <input class="form-control" asp-for="Title">
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="ImageUrl"></label>
+        <input class="form-control" asp-for="ImageUrl">
+        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Content"></label>
+        <textarea class="form-control"  asp-for="Content"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+    <button class="btn btn-primary">Create</button>
+</form>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
+
+@* <form asp-controller="Posts" asp-action="Create" method="post">
+    <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" name="Title" class="form-control" id="title" placeholder="enter title">
+    </div>
+    <div class="mb-3">
+        <label for="imgurl" class="form-label">ImageUrl</label>
+        <input type="text" name="ImageUrl" class="form-control" id="imgurl" placeholder="enter image url">
+    </div>
+    <div class="mb-3">
+        <label for="content" class="form-label">Content</label>
+        <textarea class="form-control" name="Content" id="content" rows="5"></textarea>
+    </div>
+    <button class="btn btn-primary">Create</button>
+</form> *@
