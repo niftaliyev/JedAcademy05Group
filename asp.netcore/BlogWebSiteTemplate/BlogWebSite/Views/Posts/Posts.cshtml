@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Post>
+
+@if (TempData.ContainsKey("Status"))
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Status"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="row mb-4">
+    <div class="row tm-mb-90 tm-gallery">
+
+    @foreach (var item in Model)
+    {
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <figure class="effect-ming tm-video-item">
+                    <img src="@item.ImageUrl" alt="Image" class="img-fluid">
+                    <figcaption class="d-flex align-items-center justify-content-center">
+                        <h2>@item.Content</h2>
+                        <a asp-controller="Posts" asp-action="Details" asp-route-id="@item.Id">View more</a>
+                    </figcaption>
+                </figure>
+                <div class="d-flex justify-content-between tm-text-gray">
+                    <span class="tm-text-gray-light">@item.Date</span>
+                </div>
+            </div>
+    }
+    </div>
+</div>
+
+
+
+@* <div class="list-group">
+
+    @foreach (var item in Model)
+    {
+        <a href="#" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">@item.Title</h5>
+                <small>@item.Date.Year-@item.Date.Month-@item.Date.Day</small>
+            </div>
+            <p class="mb-1">@item.Content</p>
+        </a>
+    }
+</div> *@

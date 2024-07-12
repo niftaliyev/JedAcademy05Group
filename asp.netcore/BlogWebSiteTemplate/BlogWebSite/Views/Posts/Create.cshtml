@@ -1,0 +1,32 @@
+﻿@model Post
+<form asp-controller="Posts" asp-action="Create" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="Title"></label>
+        <input class="form-control" asp-for="Title">
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Content"></label>
+        <textarea asp-for="Content" rows="10"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label for="formFileMultiple" class="form-label">Multiple files input example</label>
+        <input name="Image" class="form-control" type="file" id="formFileMultiple" multiple>
+    </div>
+    <button class="btn btn-primary">Create</button>
+</form>
+<script src="https://cdn.tiny.cloud/1/qxa1rzpjvk8yk5n3pxqr3o0p3aulro9kcxcl16wysknm9j7b/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea',
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount linkchecker',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+    });
+</script>
+@* @section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+} *@
