@@ -36,6 +36,11 @@
                         <a class="nav-link text-dark" asp-controller="Posts" asp-action="Posts">Posts</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link text-dark" asp-controller="Posts" asp-action="CategorySearch" asp-route-categoryId="1">News</a>
+                        <a class="nav-link text-dark" asp-controller="Posts" asp-action="CategorySearch" asp-route-categoryId="2">Sports</a>
+                        <a class="nav-link text-dark" asp-controller="Posts" asp-action="CategorySearch" asp-route-categoryId="3">Buisiness</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link text-dark" asp-controller="Posts" asp-action="Create">Create</a>
                     </li>
                 </ul>
@@ -44,8 +49,8 @@
     </nav>
 
     <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="img/hero.jpg">
-        <form class="d-flex tm-search-form">
-            <input class="form-control tm-search-input" type="search" placeholder="Search" aria-label="Search">
+        <form asp-controller="Posts" asp-action="Search" method="get" class="d-flex tm-search-form">
+            <input name="title" class="form-control tm-search-input" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success tm-search-btn" type="submit">
                 <i class="fas fa-search"></i>
             </button>

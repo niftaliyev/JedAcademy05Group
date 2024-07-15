@@ -11,6 +11,11 @@
         <textarea asp-for="Content" rows="10"></textarea>
         <span asp-validation-for="Content" class="text-danger"></span>
     </div>
+    <div class="mb-3">
+        <label asp-for="CategoryId" class="control-label"></label>
+        <select class="form-control" asp-for="CategoryId" asp-items="ViewBag.CategoryId"></select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
 
     <div class="mb-3">
         <label for="formFileMultiple" class="form-label">Multiple files input example</label>
