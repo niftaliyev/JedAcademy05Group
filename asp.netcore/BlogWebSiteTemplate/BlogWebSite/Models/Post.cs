@@ -16,4 +16,5 @@ public class Post
     public string ImageUrl { get; set; }
     public int CategoryId { get; set; }
     public Category Category { get; set; }
+    public IEnumerable<PostTag> PostTags { get; set; }
 }

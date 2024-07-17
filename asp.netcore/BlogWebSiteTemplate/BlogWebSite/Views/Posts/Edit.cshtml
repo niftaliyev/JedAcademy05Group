@@ -1,5 +1,5 @@
 ﻿@model Post
-<form asp-controller="Posts" asp-action="Create" method="post" enctype="multipart/form-data">
+<form asp-controller="Posts" asp-action="Edit" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="mb-3">
         <label class="form-label" asp-for="Title"></label>
@@ -19,11 +19,13 @@
 
     <select name="tags" id="tags" data-placeholder="Chose something.." multiple class="form-control chosen-select" asp-items="@ViewBag.Tags"></select>
 
+    <img src="@Model.ImageUrl" style="height: 200; width: 200"></img>
+
     <div class="mb-3">
         <label for="formFileMultiple" class="form-label">Multiple files input example</label>
         <input name="Image" class="form-control" type="file" id="formFileMultiple" multiple>
     </div>
-    <button class="btn btn-primary">Create</button>
+    <button class="btn btn-primary">Edit</button>
 </form>
 <script src="https://cdn.tiny.cloud/1/qxa1rzpjvk8yk5n3pxqr3o0p3aulro9kcxcl16wysknm9j7b/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
@@ -38,10 +40,5 @@
 <script src="~/chosen/chosen.jquery.min.js"></script>
 
 <script>
-        $(".chosen-select").chosen();
+    $(".chosen-select").chosen();
 </script>
-
-@* @section Scripts
-{
-    <partial name="_ValidationScriptsPartial" />
-} *@

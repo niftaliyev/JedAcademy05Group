@@ -15,6 +15,7 @@
                 </figure>
                 <div class="d-flex justify-content-between tm-text-gray">
                     <span class="tm-text-gray-light">@item.Date</span>
+                    <a class="btn btn-primary" asp-controller="Posts" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                 </div>
             </div>
         }
