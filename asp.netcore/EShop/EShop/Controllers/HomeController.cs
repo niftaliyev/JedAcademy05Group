@@ -1,32 +1,59 @@
 using EShop.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Linq;
 
-namespace EShop.Controllers
+namespace EShop.Controllers;
+
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+    private readonly AplicationDbContext context;
+
+    public HomeController(AplicationDbContext context)
     {
-        private readonly ILogger<HomeController> _logger;
+        this.context = context;
+    }
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+    public IActionResult Index()
+    {
+        return View(context.Products.ToList());
+    }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+    public IActionResult Privacy()
+    {
+        //if (!HttpContext.Request.Cookies.ContainsKey("sesion"))
+        //{
+        //    HttpContext.Response.Cookies.Append("sesion", Guid.NewGuid().ToString());
+        //}
+        HttpContext.Session.SetString("Date",DateTime.Now.ToString());
+        return View();
+    }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+    public IActionResult AddToCart(int id,string returnUrl)
+    {
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        Dictionary<int, int> cart;
+        if (!HttpContext.Session.Keys.Contains("cart"))
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            cart = new Dictionary<int, int>();
+            cart.Add(id,1);
         }
+        else
+        {
+            cart = JsonConvert.DeserializeObject<Dictionary<int,int>>(HttpContext.Session.GetString("cart"));
+
+            if (cart.ContainsKey(id))
+                cart[id]++;
+            else 
+                cart.Add(id,1);
+
+        }
+        HttpContext.Session.SetString("cart",JsonConvert.SerializeObject(cart));
+
+        if (returnUrl == null)
+            return RedirectToAction("Index", "Home");
+        else
+            return Redirect(returnUrl);
     }
 }
