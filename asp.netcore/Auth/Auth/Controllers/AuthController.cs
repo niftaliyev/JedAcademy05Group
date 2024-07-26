@@ -11,11 +11,13 @@ public class AuthController : Controller
 {
     private readonly ApplicationDbContext context;
     private readonly IUserManager userManager;
+    private readonly EmailService emailService;
 
-    public AuthController(ApplicationDbContext context, IUserManager userManager)
+    public AuthController(ApplicationDbContext context, IUserManager userManager, EmailService emailService)
     {
         this.context = context;
         this.userManager = userManager;
+        this.emailService = emailService;
     }
     [HttpGet]
     public IActionResult Register()
@@ -25,14 +27,18 @@ public class AuthController : Controller
     [HttpPost]
     public async Task<IActionResult> Register(RegisterViewModel model)
     {
+        Random random = new Random();   
         if (ModelState.IsValid)
         {
+            var registerCode = random.Next(4, 4);
             context.Users.Add(new Models.User
             {
                 Login = model.Login,
                 PasswordHash = Sha256Encryptor.Encrypt(model.Password),
-                IsAdmin = false
+                IsAdmin = false,
+                RegisterCode = registerCode
             });
+            await emailService.SendEmailAsync("kamran.eilink@gmail.com", "test auth",$"Hello {model.Login} , tour register code is: {registerCode}");
             await context.SaveChangesAsync();
             return RedirectToAction("Login","Auth");
         }

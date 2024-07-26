@@ -1,4 +1,6 @@
+using Auth.Filters;
 using Auth.Models;
+using Auth.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -19,6 +21,8 @@ namespace Auth.Controllers
             return View();
         }
 
+        //[TypeFilter(typeof(AutorizeFilter))]
+        [AutorizeFilter]
         //[Authorize]
         public IActionResult Privacy()
         {
