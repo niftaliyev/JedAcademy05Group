@@ -1,15 +1,20 @@
 using EShop.Models;
+using EShop.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession();
 builder.Services.AddDbContext<AplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 });
+
+builder.Services.AddTransient<ICartService, CartService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

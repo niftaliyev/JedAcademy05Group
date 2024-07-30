@@ -1,15 +1,9 @@
-﻿namespace EShop.Models;
+﻿using EShop.Models;
 
-public enum OrderStatus
-{
-    New,
-    Cooking,
-    Delivery,
-    Done
-}
-public class Order
-{
+namespace EShop.ViewModels;
 
+public class OrderViewModel
+{
     public int Id { get; set; }
     public string FullName { get; set; }
     public string Address { get; set; }
@@ -18,5 +12,4 @@ public class Order
     public string Comment { get; set; }
     public decimal TotalPrice { get; set; }
     public OrderStatus OrderStatus { get; set; }
-    public IEnumerable<OrderProduct> OrderProducts { get; set; }
 }

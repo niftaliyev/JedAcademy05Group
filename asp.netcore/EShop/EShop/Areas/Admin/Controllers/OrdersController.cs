@@ -34,6 +34,8 @@ namespace EShop.Areas.Admin.Controllers
             }
 
             var order = await _context.Orders
+                .Include(x => x.OrderProducts)
+                .ThenInclude(x => x.Product)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (order == null)
             {
