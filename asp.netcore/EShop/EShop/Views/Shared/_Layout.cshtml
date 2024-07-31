@@ -26,8 +26,26 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
-@*                     <vc:cart></vc:cart>
- *@                    @await Component.InvokeAsync("Cart")
+                    <ul class="navbar-nav">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+
+                            <a class="nav-link" asp-controller="Account" asp-action="Logout">Logout</a>
+
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                        }
+                    </ul>
+                    @*                     <vc:cart></vc:cart>
+
+                    *@                    @await Component.InvokeAsync("Cart")
 
                 </div>
 
@@ -37,6 +55,11 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <h3>HELLO: @User.Identity.Name</h3>
+
+            }
             @RenderBody()
         </main>
     </div>

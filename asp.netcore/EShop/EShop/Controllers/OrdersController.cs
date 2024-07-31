@@ -2,6 +2,7 @@
 using EShop.Services;
 using EShop.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 
 namespace EShop.Controllers;
 
@@ -9,11 +10,13 @@ public class OrdersController : Controller
 {
     private readonly ICartService cartService;
     private readonly AplicationDbContext context;
+    private readonly BrevoEmailService emailService;
 
-    public OrdersController(ICartService cartService,AplicationDbContext context)
+    public OrdersController(ICartService cartService,AplicationDbContext context, BrevoEmailService emailService)
     {
         this.cartService = cartService;
         this.context = context;
+        this.emailService = emailService;
     }
     [HttpGet]
     public IActionResult Create()
@@ -49,6 +52,14 @@ public class OrdersController : Controller
             context.OrderProducts.AddRange(orderProducts);
             await context.SaveChangesAsync();
             cartService.Clear();
+
+            StringBuilder content = new StringBuilder(1000);
+
+            foreach (var item in cartItems)
+            {
+                content.Append($"<b>{item.Product.Title}</b> {item.Amount}<br>");
+            }
+            await emailService.SendEmailAsync(orderViewModel.Email,"Order from EShop",content.ToString());
             return RedirectToAction("Index", "Home");
         }
         return View(orderViewModel);

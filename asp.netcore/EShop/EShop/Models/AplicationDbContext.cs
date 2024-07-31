@@ -1,10 +1,12 @@
 ﻿using EShop.Models.Configuration;
+using EShop.Models.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
 
 namespace EShop.Models;
 
-public class AplicationDbContext : DbContext
+public class AplicationDbContext : IdentityDbContext<AppUser>
 {
     public AplicationDbContext(DbContextOptions options) : base(options)
     {

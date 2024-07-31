@@ -1,5 +1,7 @@
 using EShop.Models;
+using EShop.Models.Identity;
 using EShop.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,11 +9,20 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddScoped<EmailService>();
+builder.Services.AddScoped<BrevoEmailService>();
+
+
 builder.Services.AddSession();
 builder.Services.AddDbContext<AplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 });
+
+builder.Services.AddIdentity<AppUser, IdentityRole>()
+           .AddEntityFrameworkStores<AplicationDbContext>()
+           .AddDefaultTokenProviders();
 
 builder.Services.AddTransient<ICartService, CartService>();
 

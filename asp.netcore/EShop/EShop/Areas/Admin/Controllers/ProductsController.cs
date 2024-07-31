@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EShop.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EShop.Areas.Admin.Controllers
 {
+    [Authorize]
     [Area("Admin")]
     public class ProductsController : Controller
     {
