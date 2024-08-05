@@ -21,7 +21,7 @@ public class BrevoEmailService
             Body = message,
             IsBodyHtml = true,
         };
-        mailMessage.To.Add("kamran.eilink@gmail.com");
+        mailMessage.To.Add(email);
 
         smtpClient.Send(mailMessage);
     }

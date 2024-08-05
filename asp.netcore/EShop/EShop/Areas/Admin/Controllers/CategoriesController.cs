@@ -10,8 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace EShop.Areas.Admin.Controllers
 {
-    [Authorize]
-
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class CategoriesController : Controller
     {

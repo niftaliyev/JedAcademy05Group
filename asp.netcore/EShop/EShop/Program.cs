@@ -1,3 +1,4 @@
+using EShop.Extensions;
 using EShop.Models;
 using EShop.Models.Identity;
 using EShop.Services;
@@ -42,6 +43,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
 
+await app.SeedDataAsync();
 app.UseAuthorization();
 
 app.MapControllerRoute(
