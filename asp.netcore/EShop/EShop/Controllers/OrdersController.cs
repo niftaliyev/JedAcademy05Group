@@ -34,13 +34,13 @@ public class OrdersController : Controller
             order.Address = orderViewModel.Address;
             order.Phone = orderViewModel.Phone;
             order.TotalPrice = orderViewModel.TotalPrice;
-            order.OrderStatus = orderViewModel.OrderStatus;
+            order.OrderStatus = "New";
             order.Comment = orderViewModel.Comment;
             order.Email = orderViewModel.Email;
 
             var cartItems = cartService.GetProducts();
             order.TotalPrice = cartItems.Sum(x => x.Product.Price * x.Amount);
-            order.OrderStatus = OrderStatus.New;
+            order.OrderStatus = "New";
             context.Orders.Add(order);
             await context.SaveChangesAsync();
 

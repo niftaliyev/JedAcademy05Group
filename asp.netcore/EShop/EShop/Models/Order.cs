@@ -17,6 +17,6 @@ public class Order
     public string Phone { get; set; }
     public string Comment { get; set; }
     public decimal TotalPrice { get; set; }
-    public OrderStatus OrderStatus { get; set; }
+    public string OrderStatus { get; set; }
     public IEnumerable<OrderProduct> OrderProducts { get; set; }
 }

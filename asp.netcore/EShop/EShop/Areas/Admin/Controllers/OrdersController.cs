@@ -82,6 +82,8 @@ namespace EShop.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            ViewData["OrderStatus"] = new SelectList(Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>());
+
             return View(order);
         }
 
@@ -90,15 +92,15 @@ namespace EShop.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FullName,Address,Email,Phone,Comment,TotalPrice")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FullName,Address,Email,Phone,Comment,OrderStatus")] Order order)
         {
             if (id != order.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 try
                 {
                     _context.Update(order);
@@ -116,7 +118,7 @@ namespace EShop.Areas.Admin.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
+            //}
             return View(order);
         }
 
