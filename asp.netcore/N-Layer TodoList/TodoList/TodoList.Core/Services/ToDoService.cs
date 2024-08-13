@@ -36,7 +36,7 @@ public class ToDoService : IToDoService
         }
     }
 
-    public IEnumerable<ToDoItemList> GetAllCurrentUserList(string listId)
+    public IEnumerable<ToDoItemList> GetAllCurrentUserList()
     {
         if (userService.CurrentUser != null)
         {

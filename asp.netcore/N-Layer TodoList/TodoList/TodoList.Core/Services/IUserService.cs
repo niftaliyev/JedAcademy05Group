@@ -4,5 +4,5 @@ namespace TodoList.Core.Services;
 
 public interface IUserService
 {
-    User CurrentUser { get; set; }
+    User CurrentUser { get; }
 }

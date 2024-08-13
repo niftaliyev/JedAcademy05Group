@@ -1,16 +1,18 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using TodoList.Core.Services;
 using ToDoList.Presentation.Models;
+using ToDoList.Presentation.ViewModels;
 
 namespace ToDoList.Presentation.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IToDoService toDoService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IToDoService toDoService)
         {
-            _logger = logger;
+            this.toDoService = toDoService;
         }
 
         public IActionResult Index()
@@ -18,9 +20,30 @@ namespace ToDoList.Presentation.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Tasks(string id)
         {
-            return View();
+            var viewModel = new TasksPageViewModel
+            {
+                CurrenListId = id,
+                ToDoItemLists = toDoService.GetAllCurrentUserList(),
+                CurrentListToDoItems = toDoService.GetAllItemsByListId(id)
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult AddList(AddToDoListViewModel NewList)
+        {
+            toDoService.AddToDoList(NewList.Title);
+            TempData["Message"] = "new lsit added!";
+            return RedirectToAction("Tasks","Home");
+        }
+        [HttpPost]
+        public IActionResult AddItem(AddToDoItemViewModel NewItem)
+        {
+            toDoService.AddTaskToList(NewItem.ToDoListId,NewItem.Title);
+            TempData["Message"] = "new item added!";
+            return RedirectToAction("Tasks", "Home");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

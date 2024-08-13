@@ -8,5 +8,5 @@ public interface IToDoService
     void AddTaskToList(string listId, string title);
 
     IEnumerable<ToDoItem> GetAllItemsByListId(string listId);
-    IEnumerable<ToDoItemList> GetAllCurrentUserList(string listId);
+    IEnumerable<ToDoItemList> GetAllCurrentUserList();
 }

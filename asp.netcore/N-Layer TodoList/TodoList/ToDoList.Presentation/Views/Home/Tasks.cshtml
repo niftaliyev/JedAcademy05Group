@@ -1,0 +1,97 @@
+﻿@model TasksPageViewModel
+
+@if (TempData.ContainsKey("Message"))
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        @TempData["Message"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <button type="button" class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#listModal">
+            Add new list
+        </button>
+
+        <div class="list-group">
+            @foreach (var item in Model.ToDoItemLists)
+            {
+
+                <a asp-controller="Home"
+                   asp-action="Tasks"
+                   asp-route-id="@item.Id" 
+                   class="@(Model.CurrenListId == item.Id ? "active" : "") list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">@item.Tittle</h5>
+                    </div>
+                    <small>0</small>
+                </a>
+            }
+        </div>
+    </div>
+    <div class="col-md-8">
+        <button type="submit" class="btn btn-outline-primary w-100" data-bs-toggle="modal" data-bs-target="#itemModal">
+            Add new item
+        </button>
+        <ul class="list-group">
+            @foreach(var item in Model.CurrentListToDoItems)
+            {
+                <li class="list-group-item">@item.Title</li>
+            }
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="listModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form asp-controller="Home" asp-action="AddList" method="post" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label asp-for="NewList.Title"></label>
+                    <input asp-for="NewList.Title"></input>
+                    <span asp-validation-for="NewList.Title"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="itemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form asp-controller="Home" asp-action="AddItem" method="post" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label asp-for="NewItem.Title"></label>
+                    <input asp-for="NewItem.Title"></input>
+                    <span asp-validation-for="NewItem.Title"></span>
+                </div>
+            </div>
+            <input type="hidden" asp-for="NewItem.ToDoListId" value="@Model.CurrenListId"></input>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+    </div>
+</div>

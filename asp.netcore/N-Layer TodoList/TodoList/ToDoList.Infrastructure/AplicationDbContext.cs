@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using System.Reflection.Emit;
 using TodoList.Core.Entities;
-using ToDoList.Infrastructure.Configurations;
 
 namespace ToDoList.Infrastructure;
 
